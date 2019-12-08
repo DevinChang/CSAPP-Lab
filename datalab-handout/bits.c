@@ -165,7 +165,7 @@ int tmin(void) {
  *   Rating: 1
  */
 int isTmax(int x) {
-  return !((~x) + (~x)) & !!(x);
+  return !((~x) + (~x)) & !!(x) & !!(~x);
 }
 /* 
  * allOddBits - return 1 if all odd-numbered bits in word set to 1
@@ -176,7 +176,10 @@ int isTmax(int x) {
  *   Rating: 2
  */
 int allOddBits(int x) {
-  return 2;
+    // 构造奇数位全为1的mask
+    int mask = 0xAA + (0xAA << 8);
+    mask = mask + (mask << 16);
+  return !((mask & x) ^ mask);
 }
 /* 
  * negate - return -x 
@@ -186,7 +189,7 @@ int allOddBits(int x) {
  *   Rating: 2
  */
 int negate(int x) {
-  return 2;
+  return ~x + 1;
 }
 //3
 /* 
